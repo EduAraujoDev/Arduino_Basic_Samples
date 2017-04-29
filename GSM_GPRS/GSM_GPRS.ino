@@ -1,17 +1,19 @@
 #include "SIM900.h"
 #include <SoftwareSerial.h>
 #include "sms.h"
+#include "call.h"
 
 SMSGSM sms;
+CallGSM call;
 
-int numdata;
-boolean started=false;
+boolean started = false;
 char smsbuffer[160];
 char n[20];
+char numTelefone[12] = "11*********";
 
 void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
-  
+
   Serial.begin(9600);
   Serial.println("GSM GPRS testing.");
 
@@ -22,18 +24,15 @@ void setup() {
     Serial.println("\nstatus=NOK");
   }
 
-  if (started) {
-    if (sms.SendSMS("11*********", "Arduino SMS")) {
-      Serial.println("\nSMS sent OK");
-    }
-  }
+  enviaSMS();
+  fazLigacao();
 }
 
 void loop() {
-  if(started){
+  if (started) {
     digitalWrite(LED_BUILTIN, HIGH);
-    
-    if(gsm.readSMS(smsbuffer, 160, n, 20)) {
+
+    if (gsm.readSMS(smsbuffer, 160, n, 20)) {
       Serial.println(n);
       Serial.println(smsbuffer);
     }
@@ -41,4 +40,21 @@ void loop() {
     digitalWrite(LED_BUILTIN, LOW);
     delay(1000);
   }
+}
+
+void enviaSMS() {
+  if (started) {
+    if (sms.SendSMS(numTelefone, "Arduino SMS")) {
+      Serial.println("\nSMS sent OK");
+    }
+  }
+}
+
+void fazLigacao() {
+  Serial.println("\nDiscando....");
+  call.Call(numTelefone);
+  delay(10000);
+   
+  Serial.println("Desligando...");
+  call.HangUp();
 }
