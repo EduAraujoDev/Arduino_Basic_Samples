@@ -1,63 +1,45 @@
-#include "SIM900.h"
+//#include "SIM900.h"
 #include <SoftwareSerial.h>
-#include "sms.h"
-#include "call.h"
+#include "inetGSM.h"
 
-SMSGSM sms;
-CallGSM call;
+InetGSM inet;
 
 boolean started = false;
+
 char smsbuffer[160];
 char n[20];
-char numTelefone[12] = "11********";
+
+byte valor;
 
 void setup() {
-  pinMode(LED_BUILTIN, OUTPUT);
-
   Serial.begin(9600);
-  Serial.println("GSM GPRS testing.");
+  Serial.println(F("Testando GSM Shield SIM900"));
 
   if (gsm.begin(2400)) {
-    Serial.println("\nstatus=OK");
+    Serial.println(F("\nstatus=READY"));
     started = true;
   } else {
-    Serial.println("\nstatus=NOK");
+    Serial.println(F("\nstatus=IDLE"));
   }
-
-  enviaSMS();
-  fazLigacao();
 }
 
 void loop() {
   if (started) {
-    digitalWrite(LED_BUILTIN, HIGH);
-
-    if (gsm.readSMS(smsbuffer, 160, n, 20)) {
-      Serial.println(n);
-      Serial.println(smsbuffer);
-    }
-
-    Serial.println("-------------------------------------------------------------------------------------");
-    acessaHttp();
-
-    digitalWrite(LED_BUILTIN, LOW);
-    delay(1000);
+    envia_GSM("teste");
+    delay(2000);
   }
 }
 
-void enviaSMS() {
-  if (started) {
-    if (sms.SendSMS(numTelefone, "Arduino SMS")) {
-      Serial.println("\nSMS sent OK");
-    }
-  }
-}
-
-void fazLigacao() {
-  Serial.println("Discando....");
-  call.Call(numTelefone);
-  delay(10000);
-   
-  Serial.println("Desligando...");
-  call.HangUp();
+void envia_GSM(String texto) {
+char temp_string[55];
+  char msg[10];
+  int numdata;
+  if (inet.attachGPRS("timbrasil.br", "tim", "tim"))
+    Serial.println(F("status=Conectado..."));
+  else Serial.println(F("status=Nao conectado !!"));
+  delay(100);
+  String valor = "MSG_Texto1=" + texto;
+  valor.toCharArray(temp_string, 55);
+  numdata = inet.httpPOST("localhost.com", 80, "/add.php", temp_string, msg, 50);
+  delay(5000);
 }
