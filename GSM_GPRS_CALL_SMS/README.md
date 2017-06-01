@@ -1,5 +1,5 @@
-# Arduino_Basic_Samples / GSM_GPRS
-Projeto com exemplo de uma protopitapação para GSM_GPRS, usando Arduino UNO. Para essa projetos, foi usado os seguintes componentes:
+# Arduino_Basic_Samples / GSM_GPRS_CALL_SMS
+Projeto com exemplo de uma protopitapação para envio de sms e efetuar chamada co o componente GSM_GPRS, usando Arduino UNO. Para essa projetos, foi usado os seguintes componentes:
 
  - Arduino UNO
  - Jumper Macho-Femea
