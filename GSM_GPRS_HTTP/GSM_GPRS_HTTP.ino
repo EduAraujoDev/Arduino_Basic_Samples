@@ -34,12 +34,12 @@ void envia_GSM(String texto) {
 char temp_string[55];
   char msg[10];
   int numdata;
-  if (inet.attachGPRS("timbrasil.br", "tim", "tim"))
+  if (inet.attachGPRS("zap.vivo.com.br", "vivo", "vivo"))
     Serial.println(F("status=Conectado..."));
   else Serial.println(F("status=Nao conectado !!"));
   delay(100);
   String valor = "MSG_Texto1=" + texto;
   valor.toCharArray(temp_string, 55);
-  numdata = inet.httpPOST("localhost.com", 80, "/add.php", temp_string, msg, 50);
+  numdata = inet.httpPOST("eduaraujodev.com", 80, "/add.php", temp_string, msg, 50);
   delay(5000);
 }
