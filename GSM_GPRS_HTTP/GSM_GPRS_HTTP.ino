@@ -40,6 +40,6 @@ char temp_string[55];
   delay(100);
   String valor = "MSG_Texto1=" + texto;
   valor.toCharArray(temp_string, 55);
-  numdata = inet.httpPOST("eduaraujodev.com", 80, "/add.php", temp_string, msg, 50);
+  numdata = inet.httpPOST("localhost.com", 80, "/add.php", temp_string, msg, 50);
   delay(5000);
 }
