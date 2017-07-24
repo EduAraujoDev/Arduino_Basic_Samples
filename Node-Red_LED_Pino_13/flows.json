@@ -1,0 +1,44 @@
+[
+    {
+        "id": "153be2d7.9ac24d",
+        "type": "tab",
+        "label": "Flow 1"
+    },
+    {
+        "id": "f6544921.fe7888",
+        "type": "arduino-board",
+        "z": "",
+        "device": "COM3"
+    },
+    {
+        "id": "e17dc404.bfe5c8",
+        "type": "inject",
+        "z": "153be2d7.9ac24d",
+        "name": "LIGA LED",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 165,
+        "y": 164,
+        "wires": [
+            [
+                "fc8636ed.284378"
+            ]
+        ]
+    },
+    {
+        "id": "fc8636ed.284378",
+        "type": "arduino out",
+        "z": "153be2d7.9ac24d",
+        "name": "LED 13",
+        "pin": "13",
+        "state": "OUTPUT",
+        "arduino": "f6544921.fe7888",
+        "x": 399,
+        "y": 165,
+        "wires": []
+    }
+]
