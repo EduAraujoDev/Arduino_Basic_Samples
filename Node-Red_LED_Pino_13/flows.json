@@ -37,8 +37,27 @@
         "pin": "13",
         "state": "OUTPUT",
         "arduino": "f6544921.fe7888",
-        "x": 399,
-        "y": 165,
+        "x": 567,
+        "y": 164,
         "wires": []
+    },
+    {
+        "id": "b06424e7.0b0808",
+        "type": "inject",
+        "z": "153be2d7.9ac24d",
+        "name": "DESLIGA LED",
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 174,
+        "y": 256,
+        "wires": [
+            [
+                "fc8636ed.284378"
+            ]
+        ]
     }
 ]
